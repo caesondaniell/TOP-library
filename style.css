@@ -6,25 +6,35 @@
     box-sizing: border-box;
 }
 
+button {
+    text-transform: uppercase;
+    padding: .5em 1em;
+}
+
 h1 {
     font-size: 2.5rem;
     margin: 1em;
     text-align: center;
 }
 
+.add {
+    display: block;
+    margin: 1em auto;
+    font-size: 1.2rem;
+}
+
 table {
     border-collapse: collapse;
     font-size: 1.5rem;
+    margin: 1em auto;
 }
 
 th {
-    border-bottom: 2px solid black;
     text-align: left;
 }
 
 caption {
     caption-side: bottom;
-    border-top: 2px solid black;
     font-size: 1rem;
     font-weight: bold;
     font-family: sans-serif;
@@ -34,6 +44,50 @@ tr:nth-child(even) {
     background-color: whitesmoke;
 }
 
+tbody {
+    border: 2px solid black;
+}
+
 table * {
     padding: 0.5em 1em;
+}
+
+.new-book {
+    margin: auto;
+}
+
+.new-book form {
+    padding: 1em;
+    margin: 0 1em;
+    font-size: 1.3rem;
+    display: grid;
+    gap: 1em;
+    place-items: center;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    width: 30ch;
+}
+
+input,
+select {
+    font-size: 1.2rem;
+    height: 1.5em;
+}
+
+.close {
+    padding: 2px;
+    margin: 0;
+    font-weight: bold;
+    border: none;
+    background-color: canvas;
+    position: absolute;
+    right: 0;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 1em;
 }

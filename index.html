@@ -4,12 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=close">
     <link rel="stylesheet" href="style.css">
     <script type="module" src="script.js"></script>
 </head>
 <body>
     <div class="wrapper">
         <h1>My Library</h1>
+        <button class="add">Add a book</button>
+        <dialog class="new-book">
+            <button class="close material-symbols-outlined" aria-label="close modal">close</button>
+            <h2>Book Details</h2>
+            <form>
+                <label for="title">Title:
+                    <input autoselect type="text" name="title" id="title" required>
+                </label>
+                <label for="author">Author:
+                    <input type="text" name="author" id="author" required>
+                </label>
+                <label for="pgs">Page Count:
+                    <input type="number" name="pgs" id="pgs">
+                </label>
+                <label for="status">Status:
+                    <select required name="status" id="status">
+                        <option value="">--Please choose one--</option>
+                        <option value="finished">Finished</option>
+                        <option value="dnf">Did not finish</option>
+                        <option value="want">Want to read</option>
+                    </select>
+                </label>
+                <button class="submit">Add to libary</button>
+            </form>
+        </dialog>
         <table class="booklist">
             <caption>
                 Books I've read, tried to read, or want to read.
