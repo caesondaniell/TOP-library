@@ -1,4 +1,19 @@
 const myLibrary = [];
+const dialog = document.querySelector("dialog");
+const buttons = document.querySelectorAll("button");
+
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        switch (button.classList[0]) {
+            case "add":
+                dialog.showModal();
+                break;
+            case "close":
+                dialog.close();
+                break;
+        }
+    })
+});
 
 function Book(title, author, page_count, read_status) {
   if (!new.target) {
