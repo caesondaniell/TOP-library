@@ -11,9 +11,9 @@ function Book(title, author, page_count, read_status) {
   this.id = crypto.randomUUID();
 }
 
-Book.prototype.info =  function() {
-    return `${this.title} by ${this.author}, ${this.pages} pages, ${this.status}`
-}
+// Book.prototype.info =  function() {
+//     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.status}`
+// }
 
 function addToLibrary(title, author, page_count, read_status) {
     const newBook = new Book(title, author, page_count, read_status);
@@ -24,4 +24,19 @@ addToLibrary("The Dictionary", "Webster", 10000, "read");
 addToLibrary("The Lorax", "Dr. Seuss", 20, "did not finish");
 addToLibrary("Where the Sidewalk Ends", "Shel Silverstien", 200, "want to read");
 
-const booklist = document.querySelector("tbody");
+function publishLibrary() {
+    const bookList = document.querySelector("tbody");
+    myLibrary.forEach((book) => {
+        const row = document.createElement("tr");
+        bookList.appendChild(row);
+        for (const detail in book) {
+            if (!(detail === "id")) {
+                const cell = document.createElement("td");
+                cell.textContent = book[detail];
+                row.appendChild(cell);
+            }
+        }
+    })
+}
+
+publishLibrary();
