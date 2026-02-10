@@ -56,6 +56,11 @@ table * {
     margin: auto;
 }
 
+.new-book::backdrop {
+    background-color: hsl(0 0% 0% / .5);
+    backdrop-filter: blur(2px);
+}
+
 .new-book form {
     padding: 1em;
     margin: 0 1em;
