@@ -19,3 +19,9 @@ function addToLibrary(title, author, page_count, read_status) {
     const newBook = new Book(title, author, page_count, read_status);
     myLibrary.push(newBook);
 }
+
+addToLibrary("The Dictionary", "Webster", 10000, "read");
+addToLibrary("The Lorax", "Dr. Seuss", 20, "did not finish");
+addToLibrary("Where the Sidewalk Ends", "Shel Silverstien", 200, "want to read");
+
+const booklist = document.querySelector("tbody");
