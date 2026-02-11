@@ -3,7 +3,7 @@ const dialog = document.querySelector("dialog");
 const buttons = document.querySelectorAll("button");
 
 buttons.forEach(button => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (e) => {
         switch (button.classList[0]) {
             case "add":
                 dialog.showModal();
@@ -11,6 +11,15 @@ buttons.forEach(button => {
             case "close":
                 dialog.close();
                 break;
+            case "submit":
+                e.preventDefault();
+                const title = dialog.querySelector("#title");
+                const author = dialog.querySelector("#author");
+                const pages = dialog.querySelector("#pgs");
+                const status = dialog.querySelector("#status");
+                addToLibrary(title.value, author.value, pages.value, status.value);
+                publishLibrary();
+                dialog.close();
         }
     })
 });
@@ -35,9 +44,9 @@ function addToLibrary(title, author, page_count, read_status) {
     myLibrary.push(newBook);
 }
 
-addToLibrary("The Dictionary", "Webster", 10000, "read");
-addToLibrary("The Lorax", "Dr. Seuss", 20, "did not finish");
-addToLibrary("Where the Sidewalk Ends", "Shel Silverstien", 200, "want to read");
+// addToLibrary("The Dictionary", "Webster", 10000, "read");
+// addToLibrary("The Lorax", "Dr. Seuss", 20, "did not finish");
+// addToLibrary("Where the Sidewalk Ends", "Shel Silverstien", 200, "want to read");
 
 function publishLibrary() {
     const bookList = document.querySelector("tbody");
