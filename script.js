@@ -29,7 +29,8 @@ buttons.forEach(button => {
                         status.value = "";
                         updateLibrary();
                         dialog.close();
-                    }
+                };
+                break;
         }
     })
 });
@@ -95,6 +96,17 @@ function updateLibrary() {
                 }
             }
             row.appendChild(rmv);
+            rmv.addEventListener("click", () => {
+                const idNumber = rmv.parentElement.dataset.id;
+                if (confirm("Delete this book from your library?")) {
+                    bookList.removeChild(rmv.parentElement);
+                    myLibrary.forEach(book => {
+                        if (book.id === idNumber) {
+                            myLibrary.splice(myLibrary.indexOf(book), 1);
+                        };
+                    });
+                };
+            });
         }
     })
     console.log(titleList);
