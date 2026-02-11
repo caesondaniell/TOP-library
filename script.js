@@ -45,13 +45,17 @@ function Book(title, author, pages, status) {
   this.id = crypto.randomUUID();
 }
 
-// Book.prototype.info =  function() {
-//     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.status}`
-// }
-
 function addToLibrary(title, author, pages, status) {
     const newBook = new Book(title, author, pages, status);
-    myLibrary.push(newBook);
+    let exists = 0;
+    myLibrary.forEach(book => {
+        if (book.title === newBook.title && book.author === newBook.author) {
+            exists += 1;
+        }
+    });
+    if (exists) {
+        alert("That book is already in your library!")
+    } else myLibrary.push(newBook);
 }
 
 function updateLibrary() {
