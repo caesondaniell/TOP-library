@@ -2,6 +2,8 @@ const myLibrary = [];
 const dialog = document.querySelector("dialog");
 const buttons = document.querySelectorAll("button");
 
+dialog.showModal();
+
 buttons.forEach(button => {
     button.addEventListener("click", (e) => {
         switch (button.classList[0]) {
@@ -12,14 +14,22 @@ buttons.forEach(button => {
                 dialog.close();
                 break;
             case "submit":
-                e.preventDefault();
                 const title = dialog.querySelector("#title");
                 const author = dialog.querySelector("#author");
                 const pages = dialog.querySelector("#pgs");
                 const status = dialog.querySelector("#status");
-                addToLibrary(title.value, author.value, pages.value, status.value);
-                publishLibrary();
-                dialog.close();
+                if (title.value !== "" && 
+                    author.value !== "" && 
+                    status.value !== "") {
+                        e.preventDefault();
+                        addToLibrary(title.value, author.value, pages.value, status.value);
+                        title.value = "";
+                        author.value = "";
+                        pages.value = "";
+                        status.value = "";
+                        publishLibrary();
+                        dialog.close();
+                    }
         }
     })
 });
