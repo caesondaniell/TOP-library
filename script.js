@@ -27,21 +27,21 @@ buttons.forEach(button => {
                         author.value = "";
                         pages.value = "";
                         status.value = "";
-                        publishLibrary();
+                        updateLibrary();
                         dialog.close();
                     }
         }
     })
 });
 
-function Book(title, author, page_count, read_status) {
+function Book(title, author, pages, status) {
   if (!new.target) {
     throw Error("You must use the 'new' operator to call the constructor.")
   };
   this.title = title;
   this.author = author;
-  this.pages = page_count;
-  this.status = read_status;
+  this.pages = pages;
+  this.status = status;
   this.id = crypto.randomUUID();
 }
 
@@ -49,28 +49,32 @@ function Book(title, author, page_count, read_status) {
 //     return `${this.title} by ${this.author}, ${this.pages} pages, ${this.status}`
 // }
 
-function addToLibrary(title, author, page_count, read_status) {
-    const newBook = new Book(title, author, page_count, read_status);
+function addToLibrary(title, author, pages, status) {
+    const newBook = new Book(title, author, pages, status);
     myLibrary.push(newBook);
 }
 
-// addToLibrary("The Dictionary", "Webster", 10000, "read");
-// addToLibrary("The Lorax", "Dr. Seuss", 20, "did not finish");
-// addToLibrary("Where the Sidewalk Ends", "Shel Silverstien", 200, "want to read");
-
-function publishLibrary() {
+function updateLibrary() {
     const bookList = document.querySelector("tbody");
-    myLibrary.forEach((book) => {
-        const row = document.createElement("tr");
-        bookList.appendChild(row);
-        for (const detail in book) {
-            if (!(detail === "id")) {
-                const cell = document.createElement("td");
-                cell.textContent = book[detail];
-                row.appendChild(cell);
+    const presentTitles = bookList.querySelectorAll(".title");
+    const titleList = [];
+    for (let i = 0; i < presentTitles.length; i++) {
+        titleList.push(presentTitles[i].textContent);
+    }
+    myLibrary.forEach(book => {
+        if (!(titleList.includes(book.title))){
+            const row = document.createElement("tr");
+            bookList.appendChild(row);
+            for (const detail in book) {
+                if (!(detail === "id")) {
+                    const cell = document.createElement("td");
+                    cell.classList.add(`${detail}`);
+                    cell.textContent = book[detail];
+                    row.appendChild(cell);
+                }
             }
         }
     })
+    console.log(titleList);
+    console.log(myLibrary);
 }
-
-publishLibrary();
