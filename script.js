@@ -2,7 +2,7 @@ const myLibrary = [];
 const dialog = document.querySelector("dialog");
 const buttons = document.querySelectorAll("button");
 
-dialog.showModal();
+// dialog.showModal();
 
 buttons.forEach(button => {
     button.addEventListener("click", (e) => {
@@ -79,6 +79,12 @@ function updateLibrary() {
                 return;
         } else {
             const row = document.createElement("tr");
+            const rmv = document.createElement("button");
+            row.setAttribute("data-id", book.id);
+            rmv.classList.add("remove");
+            rmv.classList.add("material-symbols-outlined");
+            rmv.setAttribute("aria-label", "remove book");
+            rmv.textContent = "close";
             bookList.appendChild(row);
             for (const detail in book) {
                 if (!(detail === "id")) {
@@ -88,9 +94,14 @@ function updateLibrary() {
                     row.appendChild(cell);
                 }
             }
+            row.appendChild(rmv);
         }
     })
     console.log(titleList);
     console.log(authorList);
     console.log(myLibrary);
 }
+
+addToLibrary("House of Blades", "Chuckie", 10, "want to read");
+addToLibrary("Sunshine and Daisies", "Barney", 20, "finished");
+updateLibrary();
