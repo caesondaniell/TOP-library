@@ -97,14 +97,9 @@ function updateLibrary() {
             }
             row.appendChild(rmv);
             rmv.addEventListener("click", () => {
-                const idNumber = rmv.parentElement.dataset.id;
-                if (confirm("Delete this book from your library?")) {
+                if (confirm(`Delete ${book.title}, by ${book.author} from your library?`)) {
                     bookList.removeChild(rmv.parentElement);
-                    myLibrary.forEach(book => {
-                        if (book.id === idNumber) {
-                            myLibrary.splice(myLibrary.indexOf(book), 1);
-                        };
-                    });
+                    myLibrary.splice(myLibrary.indexOf(book), 1);
                 };
             });
         }
