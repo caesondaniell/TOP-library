@@ -62,11 +62,22 @@ function updateLibrary() {
     const bookList = document.querySelector("tbody");
     const presentTitles = bookList.querySelectorAll(".title");
     const titleList = [];
+    const presentAuthors = bookList.querySelectorAll(".author");
+    const authorList = [];
     for (let i = 0; i < presentTitles.length; i++) {
         titleList.push(presentTitles[i].textContent);
     }
+    for (let i = 0; i < presentAuthors.length; i++) {
+        authorList.push(presentAuthors[i].textContent);
+    }
     myLibrary.forEach(book => {
-        if (!(titleList.includes(book.title))){
+        if (titleList.includes(book.title) &&
+            authorList.includes(book.author) &&
+            titleList.indexOf(book.title) === authorList.indexOf(book.author)) {
+                titleList.splice(0,1);
+                authorList.splice(0,1);
+                return;
+        } else {
             const row = document.createElement("tr");
             bookList.appendChild(row);
             for (const detail in book) {
@@ -80,5 +91,6 @@ function updateLibrary() {
         }
     })
     console.log(titleList);
+    console.log(authorList);
     console.log(myLibrary);
 }
