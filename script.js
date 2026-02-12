@@ -86,21 +86,31 @@ function updateLibrary() {
                 if (!(detail === "id")) {
                     const cell = document.createElement("td");
                     cell.classList.add(`${detail}`);
-                    cell.textContent = book[detail];
+                    if (!(detail === "status")) {
+                        cell.textContent = book[detail];
+                    } else {
+                        const statusSelector = document.createElement("select");
+                        statusSelector.setAttribute("name", `${book.id}-status`);
+                        statusSelector.setAttribute("id", `${book.id}-status`);
+                        cell.appendChild(statusSelector);
+                        const optionList = [
+                            "want to read", 
+                            "reading", 
+                            "did not finish", 
+                            "finished"
+                        ]
+                        optionList.forEach(option => {
+                            const statusOption = document.createElement("option");
+                            statusOption.setAttribute("value", option);
+                            statusOption.classList.add("curr-status");
+                            statusOption.textContent = option;
+                            statusSelector.appendChild(statusOption);
+                        })
+                        statusSelector.value = book[detail];
+                    }
                     row.appendChild(cell);
                 }
             }
-
-            const changeStatus = document.createElement("button");
-            changeStatus.classList.add("change-status");
-            changeStatus.textContent = "change status";
-            row.appendChild(changeStatus);
-            // changeStatus.addEventListener("click", () => {
-            //     if (confirm(`Delete ${book.title}, by ${book.author} from your library?`)) {
-            //         bookList.removeChild(rmv.parentElement);
-            //         myLibrary.splice(myLibrary.indexOf(book), 1);
-            //     };
-            // });
 
             const rmv = document.createElement("button");
             rmv.classList.add("remove");
