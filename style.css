@@ -9,6 +9,7 @@
 button {
     text-transform: uppercase;
     padding: .5em 1em;
+    cursor: pointer;
 }
 
 h1 {
@@ -120,4 +121,14 @@ h2 {
     font-size: 2rem;
     padding: 0;
     margin: 0.5rem;
+}
+
+.change-status {
+    display: inline-block;
+    vertical-align: 35%;
+    width: min-content;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-left: 0.5em;
+    border-radius: 20px; 
 }

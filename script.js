@@ -80,12 +80,7 @@ function updateLibrary() {
                 return;
         } else {
             const row = document.createElement("tr");
-            const rmv = document.createElement("button");
             row.setAttribute("data-id", book.id);
-            rmv.classList.add("remove");
-            rmv.classList.add("material-symbols-outlined");
-            rmv.setAttribute("aria-label", "remove book");
-            rmv.textContent = "close";
             bookList.appendChild(row);
             for (const detail in book) {
                 if (!(detail === "id")) {
@@ -95,6 +90,23 @@ function updateLibrary() {
                     row.appendChild(cell);
                 }
             }
+
+            const changeStatus = document.createElement("button");
+            changeStatus.classList.add("change-status");
+            changeStatus.textContent = "change status";
+            row.appendChild(changeStatus);
+            // changeStatus.addEventListener("click", () => {
+            //     if (confirm(`Delete ${book.title}, by ${book.author} from your library?`)) {
+            //         bookList.removeChild(rmv.parentElement);
+            //         myLibrary.splice(myLibrary.indexOf(book), 1);
+            //     };
+            // });
+
+            const rmv = document.createElement("button");
+            rmv.classList.add("remove");
+            rmv.classList.add("material-symbols-outlined");
+            rmv.setAttribute("aria-label", "remove book");
+            rmv.textContent = "close";
             row.appendChild(rmv);
             rmv.addEventListener("click", () => {
                 if (confirm(`Delete ${book.title}, by ${book.author} from your library?`)) {
