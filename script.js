@@ -2,7 +2,7 @@ const myLibrary = [];
 const dialog = document.querySelector("dialog");
 const buttons = document.querySelectorAll("button");
 
-// dialog.showModal();
+dialog.showModal();
 
 buttons.forEach(button => {
     button.addEventListener("click", (e) => {
@@ -102,11 +102,14 @@ function updateLibrary() {
                         optionList.forEach(option => {
                             const statusOption = document.createElement("option");
                             statusOption.setAttribute("value", option);
-                            statusOption.classList.add("curr-status");
                             statusOption.textContent = option;
                             statusSelector.appendChild(statusOption);
                         })
                         statusSelector.value = book[detail];
+                        statusSelector.addEventListener("input", () => {
+                            book.changeStatus(statusSelector.value);
+                            console.log(myLibrary);
+                        })
                     }
                     row.appendChild(cell);
                 }
@@ -126,11 +129,20 @@ function updateLibrary() {
             });
         }
     })
-    console.log(titleList);
-    console.log(authorList);
-    console.log(myLibrary);
+    // --Here for when I need to add/test/style features--
+    // console.log(titleList);
+    // console.log(authorList);
+    // console.log(myLibrary);
 }
 
-addToLibrary("House of Blades", "Chuckie", 10, "want to read");
-addToLibrary("Sunshine and Daisies", "Barney", 20, "finished");
-updateLibrary();
+Object.defineProperty(Book.prototype, "changeStatus", {
+    enumerable: false,
+    value: function(status) {
+        this.status = status;
+    }
+});
+
+// --Here for when I need to add/test/style features--
+// addToLibrary("House of Blades", "Chuckie", 10, "want to read");
+// addToLibrary("Sunshine and Daisies", "Barney", 20, "finished");
+// updateLibrary();
