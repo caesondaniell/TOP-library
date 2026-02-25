@@ -1,8 +1,32 @@
-const myLibrary = [];
 const dialog = document.querySelector("dialog");
 const buttons = document.querySelectorAll("button");
-
-dialog.showModal();
+const library = [];
+class Book {
+  constructor(title, author, pages, readState) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.readState = readState;
+    }
+    
+    id = crypto.randomUUID();
+    
+    addToLibrary() {
+        let exists;
+        library.forEach(book => {
+            if (book.title === this.title && book.author === this.author) {
+                exists = 1;
+            }
+        });
+        if (exists) {
+            alert("That book is already in your library!");
+        } else library.push(this);
+    }
+    
+    changeState(state) {
+        this.readState = state;
+    }
+}
 
 buttons.forEach(button => {
     button.addEventListener("click", (e) => {
@@ -14,50 +38,27 @@ buttons.forEach(button => {
                 dialog.close();
                 break;
             case "submit":
-                const title = dialog.querySelector("#title");
-                const author = dialog.querySelector("#author");
-                const pages = dialog.querySelector("#pgs");
-                const status = dialog.querySelector("#status");
+                let title = dialog.querySelector("#title");
+                let author = dialog.querySelector("#author");
+                let pages = dialog.querySelector("#pgs");
+                let status = dialog.querySelector("#status");
                 if (title.value !== "" && 
                     author.value !== "" && 
                     status.value !== "") {
                         e.preventDefault();
-                        addToLibrary(title.value, author.value, pages.value, status.value);
+                        const book = new Book(title.value, author.value, pages.value, status.value);
                         title.value = "";
                         author.value = "";
                         pages.value = "";
                         status.value = "";
-                        updateLibrary();
                         dialog.close();
+                        book.addToLibrary();
+                        updateLibrary();
                 };
                 break;
         }
     })
 });
-
-function Book(title, author, pages, status) {
-  if (!new.target) {
-    throw Error("You must use the 'new' operator to call the constructor.")
-  };
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.status = status;
-  this.id = crypto.randomUUID();
-}
-
-function addToLibrary(title, author, pages, status) {
-    const newBook = new Book(title, author, pages, status);
-    let exists = 0;
-    myLibrary.forEach(book => {
-        if (book.title === newBook.title && book.author === newBook.author) {
-            exists += 1;
-        }
-    });
-    if (exists) {
-        alert("That book is already in your library!")
-    } else myLibrary.push(newBook);
-}
 
 function updateLibrary() {
     const bookList = document.querySelector("tbody");
@@ -71,7 +72,7 @@ function updateLibrary() {
     for (let i = 0; i < presentAuthors.length; i++) {
         authorList.push(presentAuthors[i].textContent);
     }
-    myLibrary.forEach(book => {
+    library.forEach(book => {
         if (titleList.includes(book.title) &&
             authorList.includes(book.author) &&
             titleList.indexOf(book.title) === authorList.indexOf(book.author)) {
@@ -86,7 +87,7 @@ function updateLibrary() {
                 if (!(detail === "id")) {
                     const cell = document.createElement("td");
                     cell.classList.add(`${detail}`);
-                    if (!(detail === "status")) {
+                    if (!(detail === "readState")) {
                         cell.textContent = book[detail];
                     } else {
                         const statusSelector = document.createElement("select");
@@ -107,8 +108,8 @@ function updateLibrary() {
                         })
                         statusSelector.value = book[detail];
                         statusSelector.addEventListener("input", () => {
-                            book.changeStatus(statusSelector.value);
-                            console.log(myLibrary);
+                            book.changeState(statusSelector.value);
+                            console.log(library);
                         })
                     }
                     row.appendChild(cell);
@@ -124,7 +125,7 @@ function updateLibrary() {
             rmv.addEventListener("click", () => {
                 if (confirm(`Delete ${book.title}, by ${book.author} from your library?`)) {
                     bookList.removeChild(rmv.parentElement);
-                    myLibrary.splice(myLibrary.indexOf(book), 1);
+                    library.splice(library.indexOf(book), 1);
                 };
             });
         }
@@ -132,15 +133,8 @@ function updateLibrary() {
     // --Here for when I need to add/test/style features--
     // console.log(titleList);
     // console.log(authorList);
-    // console.log(myLibrary);
+    // console.log(library);
 }
-
-Object.defineProperty(Book.prototype, "changeStatus", {
-    enumerable: false,
-    value: function(status) {
-        this.status = status;
-    }
-});
 
 // --Here for when I need to add/test/style features--
 // addToLibrary("House of Blades", "Chuckie", 10, "want to read");
