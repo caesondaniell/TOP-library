@@ -127,3 +127,13 @@ td > select {
     padding: 0;
     margin: 0.5rem;
 }
+
+.title,
+.author {
+    text-transform: capitalize;
+}
+
+.error {
+    border-color: hsl(0 100% 50%);
+    background-color: hsl(0 100% 50% / .5);
+}
